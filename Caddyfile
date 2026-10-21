@@ -1,0 +1,28 @@
+{
+	admin off
+}
+
+{$SITE_ADDRESS:http://localhost} {
+	encode zstd gzip
+
+	request_body {
+		max_size 6MB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+
+	@backend path /api/* /uploads/* /robots.txt /sitemap.xml /feed.xml /rss.xml
+	handle @backend {
+		reverse_proxy api:5000
+	}
+
+	handle {
+		reverse_proxy web:80
+	}
+}

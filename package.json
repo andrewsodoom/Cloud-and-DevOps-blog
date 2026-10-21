@@ -1,0 +1,45 @@
+{
+  "name": "cloud-and-devops-blog",
+  "version": "1.0.0",
+  "description": "A cloud and DevOps blog built step by step with React and Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently --kill-others -n api,web -c cyan,magenta \"npm:server:dev\" \"npm:client:dev\"",
+    "server:dev": "node --watch server/server.js",
+    "server:start": "node server/server.js",
+    "db:up": "docker compose up -d mongo",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f mongo",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "seed": "node server/scripts/seed.js",
+    "client:dev": "npm --prefix Client run dev",
+    "client:build": "npm --prefix Client run build",
+    "client:prerender": "node scripts/prerender.mjs",
+    "client:build:seo": "npm run client:build && npm run client:prerender",
+    "covers:generate": "node scripts/generate-covers.mjs",
+    "client:preview": "npm --prefix Client run preview",
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.11.2",
+    "morgan": "^1.12.1",
+    "multer": "^2.4.0",
+    "sanitize-html": "^2.18.1"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}
